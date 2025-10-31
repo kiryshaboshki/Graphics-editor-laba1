@@ -26,7 +26,11 @@
             <Button Content="повторить" Margin="5" Padding="10"/>
         </StackPanel>
 
-        <Canvas Grid.Row="1" Name="DrawCanvas" Background="White"/>
+        <Canvas Grid.Row="1" Name="DrawCanvas" Background="White"
+            MouseDown = "DrawCanvasMouseDown"
+            MouseMove="DrawCanvasMouseMove"
+            MouseUp="DrawCanvasMouseUp"/>
+        
 
 
 
