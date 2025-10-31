@@ -8,29 +8,47 @@
 
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Background="LightGray" Height="60">
+            <Button Content="Кисть" Margin="5" Padding="10" Click="BrushButton_Click"/>
+            <Button Content="Ластик" Margin="5" Padding="10" Click="EraserButton_Click"/>
 
-
-        <StackPanel Grid.Row="0" Orientation="Horizontal" Background="LightGray" Height="50">
-
-            <Button Content="Кисть" Margin="5" Padding="10"> </Button>
-            <Button Content="Ластик" Margin="5" Padding="10"></Button>
-
-            <ComboBox Width="80" Margin="5" SelectedIndex="0">
-                <ComboBoxItem Content= "тонкая"/>
-                <ComboBoxItem Content= "средняя"/>
-                <ComboBoxItem Content= "толстая"/>
+            <ComboBox Name="BrushSizeComboBox" Width="80" Margin="5" SelectedIndex="0" SelectionChanged="BrushSizeComboBox_SelectionChanged" Background="#FFACACAC">
+                <ComboBoxItem Content="Тонкая"/>
+                <ComboBoxItem Content="Средняя"/>
+                <ComboBoxItem Content="Толстая"/>
             </ComboBox>
 
-            <Button Content="цвет" Margin="5" Padding="10"/>
-            <Button Content="отмена" Margin="5" Padding="10"/>
-            <Button Content="повторить" Margin="5" Padding="10"/>
+            <Border BorderBrush="DarkGray" BorderThickness="1" Margin="5" Padding="3" Background="LightGray">
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Button Name="BlackColorBtn" Background="Black" Width="15" Height="15" Margin="1" Click="ColorButton_Click" ToolTip="Черный"/>
+                        <Button Name="DarkRedColorBtn" Background="DarkRed" Width="15" Height="15" Margin="1" Click="ColorButton_Click" ToolTip="Темно-красный"/>
+                        <Button Name="RedColorBtn" Background="Red" Width="15" Height="15" Margin="1" Click="ColorButton_Click" ToolTip="Красный"/>
+                        <Button Name="OrangeColorBtn" Background="Orange" Width="15" Height="15" Margin="1" Click="ColorButton_Click" ToolTip="Оранжевый"/>
+                        <Button Name="YellowColorBtn" Background="Yellow" Width="15" Height="15" Margin="1" Click="ColorButton_Click" ToolTip="Желтый"/>
+                        <Button Name="LightGreenColorBtn" Background="LightGreen" Width="15" Height="15" Margin="1" Click="ColorButton_Click" ToolTip="Светло-зеленый"/>
+                        <Button Name="GreenColorBtn" Background="Green" Width="15" Height="15" Margin="1" Click="ColorButton_Click" ToolTip="Зеленый"/>
+                        <Button Name="DarkGreenColorBtn" Background="DarkGreen" Width="15" Height="15" Margin="1" Click="ColorButton_Click" ToolTip="Темно-зеленый"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <Button Name="LightBlueColorBtn" Background="LightBlue" Width="15" Height="15" Margin="1" Click="ColorButton_Click" ToolTip="Голубой"/>
+                        <Button Name="BlueColorBtn" Background="Blue" Width="15" Height="15" Margin="1" Click="ColorButton_Click" ToolTip="Синий"/>
+                        <Button Name="DarkBlueColorBtn" Background="DarkBlue" Width="15" Height="15" Margin="1" Click="ColorButton_Click" ToolTip="Темно-синий"/>
+                        <Button Name="PurpleColorBtn" Background="Purple" Width="15" Height="15" Margin="1" Click="ColorButton_Click" ToolTip="Фиолетовый"/>
+                        <Button Name="PinkColorBtn" Background="Pink" Width="15" Height="15" Margin="1" Click="ColorButton_Click" ToolTip="Розовый"/>
+                        <Button Name="BrownColorBtn" Background="Brown" Width="15" Height="15" Margin="1" Click="ColorButton_Click" ToolTip="Коричневый"/>
+                        <Button Name="WhiteColorBtn" Background="White" Width="15" Height="15" Margin="1" Click="ColorButton_Click" BorderBrush="LightGray" BorderThickness="1" ToolTip="Белый"/>
+                        <Button Name="GrayColorBtn" Background="Gray" Width="15" Height="15" Margin="1" Click="ColorButton_Click" ToolTip="Серый"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
         </StackPanel>
 
         <Canvas Grid.Row="1" Name="DrawCanvas" Background="White"
             MouseDown = "DrawCanvasMouseDown"
             MouseMove="DrawCanvasMouseMove"
             MouseUp="DrawCanvasMouseUp"/>
-        
-
     </Grid>
 </Window>

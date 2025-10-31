@@ -24,7 +24,7 @@ namespace graphedit
             InitializeComponent();
         }
 
-        private void DrawCanvasMouseDown(object sender, MouseEventArgs e)
+        private void DrawCanvasMouseDown(object sender, MouseButtonEventArgs e)
         {
             IsDrawing = true;
             startPoint = e.GetPosition(DrawCanvas);
@@ -51,10 +51,37 @@ namespace graphedit
             startPoint = CurrentPoint;
         }
 
-        private void DrawCanvasMouseUp(object sender, MouseEventArgs e)
+        private void DrawCanvasMouseUp(object sender, MouseButtonEventArgs e)
         {
             IsDrawing = false;
         }
-            
+
+        private void ColorButton_Click(object sender, RoutedEventArgs e)
+        {
+            Button colorButton = (Button)sender;
+            CurrentBrush = colorButton.Background;
+        }
+
+        private void BrushButton_Click(object sender, RoutedEventArgs e)
+        {
+            CurrentBrush = Brushes.Black;
+        }
+
+        private void EraserButton_Click(object sender, RoutedEventArgs e)
+        {
+            CurrentBrush = Brushes.White;
+        }
+
+        private void BrushSizeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (BrushSizeComboBox.SelectedIndex == 0)
+                BrushSize = 2;
+            else if (BrushSizeComboBox.SelectedIndex == 1)
+                BrushSize = 5;
+            else if (BrushSizeComboBox.SelectedIndex == 2)
+                BrushSize = 10;
+        }
+
+
     }
 }
