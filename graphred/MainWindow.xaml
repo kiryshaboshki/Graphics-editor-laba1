@@ -32,8 +32,5 @@
             MouseUp="DrawCanvasMouseUp"/>
         
 
-
-
-
     </Grid>
 </Window>
