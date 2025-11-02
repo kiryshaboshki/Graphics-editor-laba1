@@ -77,6 +77,11 @@ namespace graphedit
             settings.SetBrushSizeByIndex(BrushSizeComboBox.SelectedIndex);
         }
 
+        private void TextButton_Click(object sender, RoutedEventArgs e)
+        {
+            currentTool = new TextTool();
+        }
+
 
     }
 }
