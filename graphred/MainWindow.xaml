@@ -12,9 +12,10 @@
             <Button Content="Кисть" Margin="5" Padding="10" Click="BrushButton_Click"/>
             <Button Content="Ластик" Margin="5" Padding="10" Click="EraserButton_Click"/>
             <Button Content="Текст" Margin="5" Padding="10" Click="TextButton_Click"/>
-            <!--<Button Content="Изображение" Margin="5" Padding="10" Click="ImageButton_Click"/>
-            <Button Content="Отменить" Margin="5" Padding="10" Click="UndoButton_Click"/>
-            <Button Content="Повторить" Margin="5" Padding="10" Click="RedoButton_Click"/>-->
+            <Button Content="Изображение" Margin="5" Padding="10" Click="ImageButton_Click"/>
+            <!--<Button Content="Очистить" Margin="5" Padding="10" Click="ClearButton_Click" Background="LightCoral"/>-->
+            <!--<Button Content="Отменить" Margin="5" Padding="10" Click="UndoButton_Click"/>
+            <Button Content="Повторить" Margin="5" Padding="10" Click="RedoButton_Click"/-->
 
             <ComboBox Name="BrushSizeComboBox" Width="80" Margin="5" SelectedIndex="0" SelectionChanged="BrushSizeComboBox_SelectionChanged" Background="#FFACACAC">
                 <ComboBoxItem Content="Тонкая"/>
