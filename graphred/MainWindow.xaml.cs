@@ -8,78 +8,73 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using graphedit.Models;
 
 namespace graphedit
 {
     public partial class MainWindow : Window
     {
         private bool IsDrawing = false;
-        private Point startPoint;
-        private Brush CurrentBrush = Brushes.Black;
-        private double BrushSize = 2;
+        private DrawingTool currentTool;
+        private DrawingSettings settings;
 
         public MainWindow()
         {
 
             InitializeComponent();
+            settings = new DrawingSettings();
+            currentTool = new BrushTool();
+
+            BrushSizeComboBox.SelectedIndex = 0;
         }
 
         private void DrawCanvasMouseDown(object sender, MouseButtonEventArgs e)
         {
             IsDrawing = true;
-            startPoint = e.GetPosition(DrawCanvas);
+            Point point = e.GetPosition(DrawCanvas);
+            currentTool.OnMouseDown(point, DrawCanvas, settings.CurrentBrush, settings.BrushSize);
+
         }
 
         private void DrawCanvasMouseMove(object sender, MouseEventArgs e)
         {
             if (!IsDrawing) return;
 
-            Point CurrentPoint = e.GetPosition(DrawCanvas);
-
-            Line line = new Line();
-            line.X1 = startPoint.X;
-            line.Y1 = startPoint.Y;
-
-            line.X2 = CurrentPoint.X;
-            line.Y2 = CurrentPoint.Y;
-
-            line.Stroke = CurrentBrush;
-            line.StrokeThickness = BrushSize;
-
-            DrawCanvas.Children.Add(line);
-
-            startPoint = CurrentPoint;
+            Point point = e.GetPosition(DrawCanvas);
+            currentTool.OnMouseMove(point, DrawCanvas, settings.CurrentBrush, settings.BrushSize);
         }
 
         private void DrawCanvasMouseUp(object sender, MouseButtonEventArgs e)
         {
             IsDrawing = false;
+            Point point = e.GetPosition(DrawCanvas);
+            currentTool.OnMouseUp(point, DrawCanvas, settings.CurrentBrush, settings.BrushSize);
         }
 
         private void ColorButton_Click(object sender, RoutedEventArgs e)
         {
+            if (settings == null) return;
             Button colorButton = (Button)sender;
-            CurrentBrush = colorButton.Background;
+            settings.CurrentBrush = colorButton.Background;
         }
 
         private void BrushButton_Click(object sender, RoutedEventArgs e)
         {
-            CurrentBrush = Brushes.Black;
+            if (settings == null) return;
+            currentTool = new BrushTool();
+            settings.CurrentBrush = Brushes.Black;
         }
 
         private void EraserButton_Click(object sender, RoutedEventArgs e)
         {
-            CurrentBrush = Brushes.White;
+            currentTool = new EraserTool();
         }
 
         private void BrushSizeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (BrushSizeComboBox.SelectedIndex == 0)
-                BrushSize = 2;
-            else if (BrushSizeComboBox.SelectedIndex == 1)
-                BrushSize = 5;
-            else if (BrushSizeComboBox.SelectedIndex == 2)
-                BrushSize = 10;
+            if (settings == null || BrushSizeComboBox.SelectedIndex == -1)
+                return;
+            settings.SetBrushSizeByIndex(BrushSizeComboBox.SelectedIndex);
         }
 
 
