@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace graphedit.Models
+namespace graphedit.Models.Tools
 {
     public class TextTool : DrawingTool 
     {

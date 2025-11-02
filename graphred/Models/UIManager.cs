@@ -4,18 +4,12 @@ using System.Windows.Media;
 
 namespace graphedit.Models
 {
-    public class UIManager
+    public class UIManager(Button[] tools,
+                     Button[] colors)
     {
-        private Button[] toolButtons;
-        private Button[] colorButtons;
-        private Button lastActiveTool;
-        private Button lastActiveColor;
-
-        public UIManager(Button[] tools, Button[] colors)
-        {
-            toolButtons = tools;
-            colorButtons = colors;
-        }
+        private readonly Button[] toolButtons = tools;
+        private readonly Button[] colorButtons = colors;
+        private Button? lastActiveColor;
 
         public void HighlightToolButton(Button activeButton)
         {
@@ -30,7 +24,6 @@ namespace graphedit.Models
             activeButton.BorderBrush = Brushes.DarkBlue;
             activeButton.BorderThickness = new Thickness(2);
 
-            lastActiveTool = activeButton;
         }
 
         public void HighlightColorButton(Button activeColorButton)
