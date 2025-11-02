@@ -13,7 +13,6 @@
             <Button Content="Ластик" Margin="5" Padding="10" Click="EraserButton_Click"/>
             <Button Content="Текст" Margin="5" Padding="10" Click="TextButton_Click"/>
             <Button Content="Изображение" Margin="5" Padding="10" Click="ImageButton_Click"/>
-            <!--<Button Content="Очистить" Margin="5" Padding="10" Click="ClearButton_Click" Background="LightCoral"/>-->
             <!--<Button Content="Отменить" Margin="5" Padding="10" Click="UndoButton_Click"/>
             <Button Content="Повторить" Margin="5" Padding="10" Click="RedoButton_Click"/-->
 
@@ -21,7 +20,10 @@
                 <ComboBoxItem Content="Тонкая"/>
                 <ComboBoxItem Content="Средняя"/>
                 <ComboBoxItem Content="Толстая"/>
+                
             </ComboBox>
+            <Button Content="Очистка" Margin="5" Padding="10" Click="ClearButton_Click" Background="LightGray"/>
+
 
             <Border BorderBrush="DarkGray" BorderThickness="1" Margin="5" Padding="3" Background="LightGray">
                 <StackPanel>
@@ -46,8 +48,10 @@
                         <Button Name="WhiteColorBtn" Background="White" Width="15" Height="15" Margin="1" Click="ColorButton_Click" BorderBrush="LightGray" BorderThickness="1" ToolTip="Белый"/>
                         <Button Name="GrayColorBtn" Background="Gray" Width="15" Height="15" Margin="1" Click="ColorButton_Click" ToolTip="Серый"/>
                     </StackPanel>
+                    
 
                 </StackPanel>
+                
             </Border>
 
         </StackPanel>

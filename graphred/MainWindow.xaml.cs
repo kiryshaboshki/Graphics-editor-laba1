@@ -86,5 +86,10 @@ namespace graphedit
         {
             currentTool = new ImageTool();
         }
+
+        private void ClearButton_Click(object sender, RoutedEventArgs e)
+        {
+            DrawCanvas.Children.Clear();
+        }
     }
 }
