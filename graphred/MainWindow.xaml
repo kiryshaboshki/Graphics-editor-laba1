@@ -9,10 +9,10 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Orientation="Horizontal" Background="LightGray" Height="60">
-            <Button Content="Кисть" Margin="5" Padding="10" Click="BrushButton_Click"/>
-            <Button Content="Ластик" Margin="5" Padding="10" Click="EraserButton_Click"/>
-            <Button Content="Текст" Margin="5" Padding="10" Click="TextButton_Click"/>
-            <Button Content="Изображение" Margin="5" Padding="10" Click="ImageButton_Click"/>
+            <Button Name ="BrushButton" Content="Кисть" Margin="5" Padding="10" Click="BrushButton_Click"/>
+            <Button Name ="EraserButton" Content="Ластик" Margin="5" Padding="10" Click="EraserButton_Click"/>
+            <Button Name ="TextButton" Content="Текст" Margin="5" Padding="10" Click="TextButton_Click"/>
+            <Button Name ="ImageButton" Content="Изображение" Margin="5" Padding="10" Click="ImageButton_Click"/>
             <!--<Button Content="Отменить" Margin="5" Padding="10" Click="UndoButton_Click"/>
             <Button Content="Повторить" Margin="5" Padding="10" Click="RedoButton_Click"/-->
 

@@ -17,6 +17,7 @@ namespace graphedit
         private bool IsDrawing = false;
         private DrawingTool currentTool;
         private DrawingSettings settings;
+        private UIManager uiManager;
 
         public MainWindow()
         {
@@ -26,6 +27,25 @@ namespace graphedit
             currentTool = new BrushTool();
 
             BrushSizeComboBox.SelectedIndex = 0;
+
+            InitializeUIManager();
+        }
+
+        private void InitializeUIManager()
+        {
+            Button[] toolButtons = { BrushButton, EraserButton, TextButton, ImageButton };
+
+            Button[] colorButtons = {
+                BlackColorBtn, DarkRedColorBtn, RedColorBtn, OrangeColorBtn,
+                YellowColorBtn, LightGreenColorBtn, GreenColorBtn, DarkGreenColorBtn,
+                LightBlueColorBtn, BlueColorBtn, DarkBlueColorBtn, PurpleColorBtn,
+                PinkColorBtn, BrownColorBtn, WhiteColorBtn, GrayColorBtn
+            };
+            uiManager = new UIManager(toolButtons, colorButtons);
+
+            uiManager.HighlightToolButton(BrushButton);
+            uiManager.HighlightColorButton(BlackColorBtn);
+
         }
 
         private void DrawCanvasMouseDown(object sender, MouseButtonEventArgs e)
@@ -56,18 +76,21 @@ namespace graphedit
             if (settings == null) return;
             Button colorButton = (Button)sender;
             settings.CurrentBrush = colorButton.Background;
+            uiManager.HighlightColorButton(colorButton);
         }
 
         private void BrushButton_Click(object sender, RoutedEventArgs e)
         {
             if (settings == null) return;
             currentTool = new BrushTool();
-            settings.CurrentBrush = Brushes.Black;
+            settings.CurrentBrush = uiManager.GetActiveColor();
+            uiManager.HighlightToolButton(BrushButton);
         }
 
         private void EraserButton_Click(object sender, RoutedEventArgs e)
         {
             currentTool = new EraserTool();
+            uiManager.HighlightToolButton(EraserButton);
         }
 
         private void BrushSizeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -80,11 +103,13 @@ namespace graphedit
         private void TextButton_Click(object sender, RoutedEventArgs e)
         {
             currentTool = new TextTool();
+            uiManager.HighlightToolButton(TextButton);
         }
 
         private void ImageButton_Click(object sender, RoutedEventArgs e)
         {
             currentTool = new ImageTool();
+            uiManager.HighlightToolButton(ImageButton);
         }
 
         private void ClearButton_Click(object sender, RoutedEventArgs e)
