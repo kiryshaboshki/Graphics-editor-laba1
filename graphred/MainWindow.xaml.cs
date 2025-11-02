@@ -12,7 +12,7 @@ using graphedit.Models;
 
 namespace graphedit
 {
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window // проверка коммитов
     {
         private bool IsDrawing = false;
         private DrawingTool currentTool;
