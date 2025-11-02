@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace graphedit.Models
+namespace graphedit.Models //
 {
     public class UIManager(Button[] tools,
                      Button[] colors)
