@@ -40,10 +40,9 @@ namespace graphedit
             Button[] toolButtons = [BrushButton, EraserButton, TextButton, ImageButton];
 
             Button[] colorButtons = [
-                BlackColorBtn, DarkRedColorBtn, RedColorBtn, OrangeColorBtn,
-                YellowColorBtn, LightGreenColorBtn, GreenColorBtn, DarkGreenColorBtn,
-                LightBlueColorBtn, BlueColorBtn, DarkBlueColorBtn, PurpleColorBtn,
-                PinkColorBtn, BrownColorBtn, WhiteColorBtn, GrayColorBtn
+                BlackColorBtn, RedColorBtn, GreenColorBtn, BlueColorBtn,
+                PurpleColorBtn, OrangeColorBtn, YellowColorBtn, PinkColorBtn,
+                BrownColorBtn, GrayColorBtn
             ];
             uiManager = new UIManager(toolButtons, colorButtons);
 

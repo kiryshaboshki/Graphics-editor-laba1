@@ -1,66 +1,204 @@
 ﻿<Window x:Class="graphedit.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Графический редактор" Height="600" Width="830">
+        Title="GraphEdit Pro" Height="900" Width="1500"
+        WindowStartupLocation="CenterScreen"
+        Background="#FFFFFF">
+
+    <Window.Resources>
+        <!-- Стиль для обычных кнопок инструментов -->
+        <Style x:Key="ToolButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#FAFAFA"/>
+            <Setter Property="Foreground" Value="#212121"/>
+            <Setter Property="BorderBrush" Value="#E0E0E0"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="16,10"/>
+            <Setter Property="Margin" Value="4"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" 
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="6">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#F5F5F5"/>
+                                <Setter TargetName="border" Property="BorderBrush" Value="#2196F3"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#E3F2FD"/>
+                                <Setter TargetName="border" Property="BorderBrush" Value="#2196F3"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Стиль для активной кнопки инструмента -->
+        <Style x:Key="ActiveToolButtonStyle" TargetType="Button" BasedOn="{StaticResource ToolButtonStyle}">
+            <Setter Property="Background" Value="#E3F2FD"/>
+            <Setter Property="Foreground" Value="#1976D2"/>
+            <Setter Property="BorderBrush" Value="#2196F3"/>
+            <Setter Property="BorderThickness" Value="2"/>
+        </Style>
+
+        <!-- Стиль для кнопок цветов -->
+        <Style x:Key="ColorButtonStyle" TargetType="Button">
+            <Setter Property="Width" Value="24"/>
+            <Setter Property="Height" Value="24"/>
+            <Setter Property="Margin" Value="3"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" 
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="4">
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="#616161"/>
+                                <Setter TargetName="border" Property="BorderThickness" Value="2"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="#212121"/>
+                                <Setter TargetName="border" Property="BorderThickness" Value="2"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Стиль для ComboBox -->
+        <Style x:Key="ModernComboBox" TargetType="ComboBox">
+            <Setter Property="Background" Value="#FAFAFA"/>
+            <Setter Property="Foreground" Value="#212121"/>
+            <Setter Property="BorderBrush" Value="#E0E0E0"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Height" Value="36"/>
+            <Setter Property="Width" Value="120"/>
+            <Setter Property="Margin" Value="8,0"/>
+            <Setter Property="Padding" Value="12,8"/>
+            <Setter Property="FontSize" Value="12"/>
+        </Style>
+
+        <!-- Стиль для TextBlock -->
+        <Style x:Key="LabelTextStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#424242"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+
+        <!-- Стиль для разделителей -->
+        <Style x:Key="SeparatorStyle" TargetType="Border">
+            <Setter Property="Background" Value="#E0E0E0"/>
+            <Setter Property="Width" Value="1"/>
+            <Setter Property="Margin" Value="20,8"/>
+            <Setter Property="Height" Value="32"/>
+        </Style>
+    </Window.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-
+            <RowDefinition Height="90"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0" Orientation="Horizontal" Background="LightGray" Height="60">
-            <Button Name ="BrushButton" Content="Кисть" Margin="5" Padding="10" Click="BrushButton_Click"/>
-            <Button Name ="EraserButton" Content="Ластик" Margin="5" Padding="10" Click="EraserButton_Click"/>
-            <Button Name ="TextButton" Content="Текст" Margin="5" Padding="10" Click="TextButton_Click"/>
-            <Button Name ="ImageButton" Content="Изображение" Margin="5" Padding="10" Click="ImageButton_Click"/>
-            <Button Content="Отменить" Margin="5" Padding="10" Click="UndoButton_Click"/>
-            <Button Content="Повторить" Margin="5" Padding="10" Click="RedoButton_Click"/>
-            <!--<Button Content="Отменить" Margin="5" Padding="10" Click="UndoButton_Click"/>
-            <Button Content="Повторить" Margin="5" Padding="10" Click="RedoButton_Click"/-->
 
-            <ComboBox Name="BrushSizeComboBox" Width="80" Margin="5" SelectedIndex="0" SelectionChanged="BrushSizeComboBox_SelectionChanged" Background="#FFACACAC">
-                <ComboBoxItem Content="Тонкая"/>
-                <ComboBoxItem Content="Средняя"/>
-                <ComboBoxItem Content="Толстая"/>
-                
-            </ComboBox>
-            <Button Content="Очистка" Margin="5" Padding="10" Click="ClearButton_Click" Background="LightGray"/>
+        <!-- Панель инструментов -->
+        <Border Grid.Row="0" Background="#F5F5F5" BorderThickness="0,0,0,1" BorderBrush="#E0E0E0">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="20">
 
-
-            <Border BorderBrush="DarkGray" BorderThickness="1" Margin="5" Padding="3" Background="LightGray">
-                <StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <Button Name="BlackColorBtn" Background="Black" Width="15" Height="15" Margin="1" Click="ColorButton_Click" ToolTip="Черный"/>
-                        <Button Name="DarkRedColorBtn" Background="DarkRed" Width="15" Height="15" Margin="1" Click="ColorButton_Click" ToolTip="Темно-красный"/>
-                        <Button Name="RedColorBtn" Background="Red" Width="15" Height="15" Margin="1" Click="ColorButton_Click" ToolTip="Красный"/>
-                        <Button Name="OrangeColorBtn" Background="Orange" Width="15" Height="15" Margin="1" Click="ColorButton_Click" ToolTip="Оранжевый"/>
-                        <Button Name="YellowColorBtn" Background="Yellow" Width="15" Height="15" Margin="1" Click="ColorButton_Click" ToolTip="Желтый"/>
-                        <Button Name="LightGreenColorBtn" Background="LightGreen" Width="15" Height="15" Margin="1" Click="ColorButton_Click" ToolTip="Светло-зеленый"/>
-                        <Button Name="GreenColorBtn" Background="Green" Width="15" Height="15" Margin="1" Click="ColorButton_Click" ToolTip="Зеленый"/>
-                        <Button Name="DarkGreenColorBtn" Background="DarkGreen" Width="15" Height="15" Margin="1" Click="ColorButton_Click" ToolTip="Темно-зеленый"/>
-                    </StackPanel>
-
-                    <StackPanel Orientation="Horizontal">
-                        <Button Name="LightBlueColorBtn" Background="LightBlue" Width="15" Height="15" Margin="1" Click="ColorButton_Click" ToolTip="Голубой"/>
-                        <Button Name="BlueColorBtn" Background="Blue" Width="15" Height="15" Margin="1" Click="ColorButton_Click" ToolTip="Синий"/>
-                        <Button Name="DarkBlueColorBtn" Background="DarkBlue" Width="15" Height="15" Margin="1" Click="ColorButton_Click" ToolTip="Темно-синий"/>
-                        <Button Name="PurpleColorBtn" Background="Purple" Width="15" Height="15" Margin="1" Click="ColorButton_Click" ToolTip="Фиолетовый"/>
-                        <Button Name="PinkColorBtn" Background="Pink" Width="15" Height="15" Margin="1" Click="ColorButton_Click" ToolTip="Розовый"/>
-                        <Button Name="BrownColorBtn" Background="Brown" Width="15" Height="15" Margin="1" Click="ColorButton_Click" ToolTip="Коричневый"/>
-                        <Button Name="WhiteColorBtn" Background="White" Width="15" Height="15" Margin="1" Click="ColorButton_Click" BorderBrush="LightGray" BorderThickness="1" ToolTip="Белый"/>
-                        <Button Name="GrayColorBtn" Background="Gray" Width="15" Height="15" Margin="1" Click="ColorButton_Click" ToolTip="Серый"/>
-                    </StackPanel>
-                    
-
+                <!-- Основные инструменты -->
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="ИНСТРУМЕНТЫ" Style="{StaticResource LabelTextStyle}" Margin="0,0,12,0" VerticalAlignment="Center"/>
+                    <Button Name="BrushButton" Content="🖌️ Кисть" Style="{StaticResource ActiveToolButtonStyle}" Click="BrushButton_Click" Width="65"/>
+                    <Button Name="EraserButton" Content="🧽 Ластик" Style="{StaticResource ToolButtonStyle}" Click="EraserButton_Click" Width="72"/>
+                    <Button Name="TextButton" Content="📝 Текст" Style="{StaticResource ToolButtonStyle}" Click="TextButton_Click" Width="65"/>
+                    <Button Name="ImageButton" Content="🖼️ Изобр." Style="{StaticResource ToolButtonStyle}" Click="ImageButton_Click" Width="72"/>
                 </StackPanel>
-                
+
+                <Border Style="{StaticResource SeparatorStyle}"/>
+
+                <!-- Действия -->
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="ДЕЙСТВИЯ" Style="{StaticResource LabelTextStyle}" Margin="0,0,12,0" VerticalAlignment="Center"/>
+                    <Button Content="↶ Отменить" Style="{StaticResource ToolButtonStyle}" Click="UndoButton_Click"/>
+                    <Button Content="↷ Повторить" Style="{StaticResource ToolButtonStyle}" Click="RedoButton_Click"/>
+                    <Button Content="🗑️ Очистить" Style="{StaticResource ToolButtonStyle}" Click="ClearButton_Click" 
+                            Background="#FFEBEE" Foreground="#D32F2F" BorderBrush="#FFCDD2"/>
+                </StackPanel>
+
+                <Border Style="{StaticResource SeparatorStyle}"/>
+
+                <!-- Настройки кисти -->
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock Text="ТОЛЩИНА:" Style="{StaticResource LabelTextStyle}" Margin="0,0,8,0"/>
+                    <ComboBox Name="BrushSizeComboBox" Style="{StaticResource ModernComboBox}" SelectedIndex="0" SelectionChanged="BrushSizeComboBox_SelectionChanged">
+                        <ComboBoxItem Content="Тонкая" Foreground="#212121"/>
+                        <ComboBoxItem Content="Средняя" Foreground="#212121"/>
+                        <ComboBoxItem Content="Толстая" Foreground="#212121"/>
+                    </ComboBox>
+                </StackPanel>
+
+                <Border Style="{StaticResource SeparatorStyle}"/>
+
+                <!-- Палитра цветов -->
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="ПАЛИТРА ЦВЕТОВ" Foreground="#616161" FontSize="10" FontWeight="Bold" 
+                               Margin="0,0,0,4" HorizontalAlignment="Center"/>
+
+                    <StackPanel Orientation="Horizontal">
+                        <!-- Первый ряд -->
+                        <StackPanel Orientation="Horizontal" Margin="0,0,8,0">
+                            <Button Name="BlackColorBtn" Background="Black" Style="{StaticResource ColorButtonStyle}" Click="ColorButton_Click" ToolTip="Черный"/>
+                            <Button Name="RedColorBtn" Background="#F44336" Style="{StaticResource ColorButtonStyle}" Click="ColorButton_Click" ToolTip="Красный"/>
+                            <Button Name="GreenColorBtn" Background="#4CAF50" Style="{StaticResource ColorButtonStyle}" Click="ColorButton_Click" ToolTip="Зеленый"/>
+                            <Button Name="BlueColorBtn" Background="#2196F3" Style="{StaticResource ColorButtonStyle}" Click="ColorButton_Click" ToolTip="Синий"/>
+                            <Button Name="PurpleColorBtn" Background="#9C27B0" Style="{StaticResource ColorButtonStyle}" Click="ColorButton_Click" ToolTip="Фиолетовый"/>
+                        </StackPanel>
+
+                        <!-- Второй ряд -->
+                        <StackPanel Orientation="Horizontal">
+                            <Button Name="OrangeColorBtn" Background="#FF9800" Style="{StaticResource ColorButtonStyle}" Click="ColorButton_Click" ToolTip="Оранжевый"/>
+                            <Button Name="YellowColorBtn" Background="#FFEB3B" Style="{StaticResource ColorButtonStyle}" Click="ColorButton_Click" ToolTip="Желтый"/>
+                            <Button Name="PinkColorBtn" Background="#E91E63" Style="{StaticResource ColorButtonStyle}" Click="ColorButton_Click" ToolTip="Розовый"/>
+                            <Button Name="BrownColorBtn" Background="#795548" Style="{StaticResource ColorButtonStyle}" Click="ColorButton_Click" ToolTip="Коричневый"/>
+                            <Button Name="GrayColorBtn" Background="#9E9E9E" Style="{StaticResource ColorButtonStyle}" Click="ColorButton_Click" ToolTip="Серый"/>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+
+            </StackPanel>
+        </Border>
+
+        <!-- Холст -->
+        <Border Grid.Row="1" Background="#FFFFFF" Padding="25">
+            <Border Background="White" CornerRadius="8" BorderBrush="#E0E0E0" BorderThickness="1"
+                    Effect="{x:Null}">
+                <Canvas Name="DrawCanvas" Background="White"
+                        MouseDown="DrawCanvasMouseDown"
+                        MouseMove="DrawCanvasMouseMove"
+                        MouseUp="DrawCanvasMouseUp"/>
             </Border>
+        </Border>
 
-        </StackPanel>
+        <!-- Статус бар -->
+        <Border Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Left" 
+                Background="#2196F3" CornerRadius="6" Margin="30" Padding="12,6">
+            <TextBlock Text="GraphEdit Pro - Готов к работе" Foreground="White" FontSize="11" FontWeight="SemiBold"/>
+        </Border>
 
-        <Canvas Grid.Row="1" Name="DrawCanvas" Background="White"
-            MouseDown = "DrawCanvasMouseDown"
-            MouseMove="DrawCanvasMouseMove"
-            MouseUp="DrawCanvasMouseUp"/>
     </Grid>
 </Window>
