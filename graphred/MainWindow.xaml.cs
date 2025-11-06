@@ -10,6 +10,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using graphedit.Models.Tools;
 using graphedit.Models;
+using graphedit.Models.Commands;
 
 namespace graphedit
 {
@@ -19,6 +20,7 @@ namespace graphedit
         private DrawingTool currentTool;
         private readonly DrawingSettings settings;
         private UIManager? uiManager;
+        private readonly UndoRedoManager undoManager;
 
         public MainWindow()
         {
@@ -26,6 +28,7 @@ namespace graphedit
             InitializeComponent();
             settings = new DrawingSettings();
             currentTool = new BrushTool();
+            undoManager = new UndoRedoManager();
 
             BrushSizeComboBox.SelectedIndex = 0;
 
@@ -53,7 +56,7 @@ namespace graphedit
         {
             isDrawing = true;
             Point point = e.GetPosition(DrawCanvas);
-            currentTool.OnMouseDown(point, DrawCanvas, settings.CurrentBrush, settings.BrushSize);
+            currentTool.OnMouseDown(point, DrawCanvas, settings.CurrentBrush, settings.BrushSize, undoManager);
 
         }
 
@@ -62,14 +65,14 @@ namespace graphedit
             if (!isDrawing) return;
 
             Point point = e.GetPosition(DrawCanvas);
-            currentTool.OnMouseMove(point, DrawCanvas, settings.CurrentBrush, settings.BrushSize);
+            currentTool.OnMouseMove(point, DrawCanvas, settings.CurrentBrush, settings.BrushSize, undoManager);
         }
 
         private void DrawCanvasMouseUp(object sender, MouseButtonEventArgs e)
         {
             isDrawing = false;
             Point point = e.GetPosition(DrawCanvas);
-            currentTool.OnMouseUp(point, DrawCanvas, settings.CurrentBrush, settings.BrushSize);
+            currentTool.OnMouseUp(point, DrawCanvas, settings.CurrentBrush, settings.BrushSize, undoManager);
         }
 
         private void ColorButton_Click(object sender, RoutedEventArgs e)
@@ -93,6 +96,7 @@ namespace graphedit
             if (uiManager == null) return;
             currentTool = new EraserTool();
             uiManager.HighlightToolButton(EraserButton);
+            undoManager.Clear();
         }
 
         private void BrushSizeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -118,6 +122,15 @@ namespace graphedit
         private void ClearButton_Click(object sender, RoutedEventArgs e)
         {
             DrawCanvas.Children.Clear();
+        }
+        private void UndoButton_Click(object sender, RoutedEventArgs e)
+        {
+            undoManager.Undo(DrawCanvas);
+        }
+
+        private void RedoButton_Click(object sender, RoutedEventArgs e)
+        {
+            undoManager.Redo(DrawCanvas);
         }
     }
 }
