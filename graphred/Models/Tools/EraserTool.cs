@@ -25,7 +25,10 @@ namespace graphedit.Models.Tools
                 X2 = point.X,
                 Y2 = point.Y,
                 Stroke = Brushes.White,
-                StrokeThickness = brushSize
+                StrokeThickness = brushSize,
+                StrokeStartLineCap = PenLineCap.Round,
+                StrokeEndLineCap = PenLineCap.Round,
+                StrokeLineJoin = PenLineJoin.Round
             };
 
             canvas.Children.Add(line);
