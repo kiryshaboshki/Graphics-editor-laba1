@@ -16,9 +16,9 @@ namespace graphedit.Models.Commands
 
         public void Execute(Canvas canvas)
         {
-            if (!canvas.Children.Contains(_element))
+            if (!_canvas.Children.Contains(_element))
             {
-                canvas.Children.Add(_element);
+                _canvas.Children.Add(_element);
             }
         }
 

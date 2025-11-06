@@ -95,7 +95,6 @@ namespace graphedit
             if (uiManager == null) return;
             currentTool = new EraserTool();
             uiManager.HighlightToolButton(EraserButton);
-            undoManager.Clear();
         }
 
         private void BrushSizeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
